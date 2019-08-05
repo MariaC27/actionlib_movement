@@ -41,6 +41,8 @@ class MovementAction(object):
 		success = True
 
 		#COMMENTED OUT FOR NOW when robot isn't present 
+		#COMMENT BACK IN when testing with the robot in 574
+
 		#rob = urx.Robot("172.22.22.2")
 		#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		#s.connect((HOST, PORT))
