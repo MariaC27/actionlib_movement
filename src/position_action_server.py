@@ -16,8 +16,6 @@ import actionlib_movement.msg
 
 import socket
 
-HOST = "172.22.22.2" # The remote host (arm IP address)
-PORT = 30002 # The same port as used by the server
 
 
 
@@ -44,9 +42,7 @@ class MovementAction(object):
 		#COMMENT BACK IN when testing with the robot in 574
 
 		#rob = urx.Robot("172.22.22.2")
-		#s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		#s.connect((HOST, PORT))
-
+	
 		rospy.loginfo("Sending robot pose!!")
 
 
@@ -66,17 +62,6 @@ class MovementAction(object):
 
 			#commands to move the robot to the position here
 
-			
-			#code for when the request was an array of floats
-			#cList = []
-			#for x in goal.coordinates:
-				#pos = Float64()
-				#pos.data = goal.coordinates[0]
-				#cList.append(pos)
-
-			#rob.movel((cList[0], cList[1], cList[2], cList[3], cList[4], cList[5]), 0.05, 0.1, relative=True)
-			#time.sleep(5)
-			#data = s.recv(1024)
 			
 			a = 0.05
 			v = 0.1
@@ -162,6 +147,4 @@ if __name__ == '__main__':
 
 	rospy.spin()
 
-	#while not rospy.is_shutdown():
-    		#continue
 
