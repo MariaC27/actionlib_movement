@@ -2,7 +2,7 @@
 
 from std_msgs.msg import String
 from std_msgs.msg import Float64
-#from urx.robotiq_two_finger_gripper import Robotiq_Two_Finger_Gripper
+from urx.robotiq_two_finger_gripper import Robotiq_Two_Finger_Gripper
 
 import rospy
 
@@ -38,10 +38,10 @@ class MovementAction(object):
 		r = rospy.Rate(1)
 		success = True
 
-		#COMMENTED OUT FOR NOW when robot isn't present 
-		#COMMENT BACK IN when testing with the robot in 574
-
-		#rob = urx.Robot("172.22.22.2")
+		#make sure to comment out all robot commands robot isn't present in order to
+		#avoid timeout errors 
+		
+		rob = urx.Robot("172.22.22.2")
 	
 		rospy.loginfo("Sending robot pose!!")
 
@@ -66,10 +66,9 @@ class MovementAction(object):
 			a = 0.05
 			v = 0.1
 
-			#COMMENTED OUT FOR NOW 
-			#pose = rob.getl()
-			#rospy.loginfo("Current pose: %s"% (rob.getl()))
-			#rob.movep(pose, acc=a, vel=v, wait=True)
+			pose = rob.getl()
+			rospy.loginfo("Current pose: %s"% (rob.getl()))
+			rob.movep(pose, acc=a, vel=v, wait=True)
 
 
 			forwardString = String()
@@ -93,47 +92,47 @@ class MovementAction(object):
 
 
 			
-			#COMMENTED OUT FOR NOW - all robot commands within 
+			
 
-			#moving forward and backward - adjust x coordinate 
+			#moving forward and backward - adjust z coordinate 
 			if (goal.request == forwardString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0], pose[1], pose[2] + 0.1, pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0], pose[1], pose[2] + 0.1, pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("forward")
 
 			elif (goal.request == backwardString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0], pose[1], pose[2] - 0.1, pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0], pose[1], pose[2] - 0.1, pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("backward")
 
 
 			#moving left and right - adjust x coordinate 
 			elif (goal.request == leftString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0]- 0.1, pose[1], pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0]- 0.1, pose[1], pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("left")
 
 			elif (goal.request == rightString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0] + 0.1, pose[1], pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0] + 0.1, pose[1], pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("right")
 
 
 			#moving up and down - adjust y coordinate
 			elif (goal.request == upString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0], pose[1] + 0.1, pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0], pose[1] + 0.1, pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("up")
 
 			elif (goal.request == downString):
 				#move the arm to a certain pose
-				#rob.movel((pose[0], pose[1] - 0.1, pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
+				rob.movel((pose[0], pose[1] - 0.1, pose[2], pose[3], pose[4], pose[5]), a, v, relative=True)
 				rospy.loginfo("down")
 
 
-			#COMMENTED OUT FOR NOW 
-			#rob.close()
-			#sys.exit() 	
+		
+			rob.close()
+			sys.exit() 	
 
 		self._result.success = success
 		rospy.loginfo('%s: Succeeded' % self._action_name)
